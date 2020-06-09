@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ethereum Balances</title>
+
+    <link rel="stylesheet" type="text/css" href="main.css">
+
+    <script src="./node_modules/web3/dist/web3.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Ethereum Balance Finder</h1>
+        <h2 id="heading">Enter address</h2>
+        <input id="userAdd">
+        <button onclick="storeAdd()">Submit</button>
+
+        <h2>Account Balance</h2>
+
+        <h3 id="showBalance">Pending</h3>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+    <script>
+          if (typeof web3 !== 'undefined') {
+            web3 = new Web3(web3.currentProvider);
+        } else {
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        }
+
+	var url = "https://mainnet.infura.io/v3/5b5495ebc3bb41f98d7bf9abda4fca6c";
+    var web3 = new Web3(url);
+    const heading = document.querySelector("#heading");
+    const userAdd = document.querySelector("#userAdd");
+    var address = "0x73BCEb1Cd57C711feaC4224D062b0F6ff338501e";
+    function storeAdd() {
+        address = userAdd.value;
+        var show = document.querySelector("#showBalance");
+        var test = web3.eth.getBalance(address, (err, bal) => {balance = bal});
+        Promise.resolve(test).then(function(value) {
+		show.innerHTML = value;
+});
+    }
+
+    </script>
+
+</body>
+</html>
